@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Marry Me?</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#yesBtn {
+    background: #ff4d6d;
+    color: white;
+}
+
+#noBtn {
+    background: #333;
+    color: white;
+    position: absolute;
+}
+
+#shareBtn {
+    background: #25D366;
+    color: white;
+    display: none;
+}
+
+.celebration {
+    display: none;
+    color: white;
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+/* hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 3s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-600px); opacity: 0; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>Will you marry me? 💍</h1>
+    <button id="yesBtn">Yes ❤️</button>
+    <button id="noBtn">No 😢</button>
+
+    <div class="celebration" id="celebration">
+        💖 She said YES!!! 💖
+    </div>
+
+    <br>
+    <button id="shareBtn">Share on WhatsApp 📤</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const celebration = document.getElementById("celebration");
+const shareBtn = document.getElementById("shareBtn");
+
+// Move NO button (works on mobile touch)
+function moveButton() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+// YES click
+yesBtn.addEventListener("click", () => {
+    celebration.style.display = "block";
+    shareBtn.style.display = "inline-block";
+
+    // hearts animation
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.bottom = "0px";
+        heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+    }, 200);
+});
+
+// WhatsApp Share
+shareBtn.addEventListener("click", () => {
+    const text = "I just said YES!!! 💍❤️";
+    const url = window.location.href;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text + " " + url)}`);
+});
+</script>
+
+</body>
+</html>
